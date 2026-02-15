@@ -1,0 +1,5 @@
+{
+  "name": "Generador de screenshot de post de redes sociales",
+  "description": "Create high-quality static images simulating social media posts from a link, allowing aesthetic customization and export.",
+  "requestFramePermissions": []
+}
