@@ -4,7 +4,7 @@ import { PostData, Layout, Theme, ExportFormat, SocialNetwork } from '../types';
 import { PREDEFINED_GRADIENTS } from '../constants';
 import { Settings, Link, Image as ImageIcon, Video, Type, Rows, Columns, Sun, Moon, Palette, Download, FileImage, FileJson, Verified, BarChart2 } from 'lucide-react';
 import { InstagramLogo, FacebookLogo, XLogo } from './IconComponents';
-import AIGenerator from './AIGenerator';
+
 
 interface ControlPanelProps {
   postData: PostData;
@@ -131,7 +131,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           rows={4}
           className="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700"
         />
-        <AIGenerator onTextGenerated={(text) => setPostData(prev => ({ ...prev, text }))} />
+        
         <div className="flex space-x-2">
             <label className="w-1/2 flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 transition-colors text-sm">
                 <ImageIcon size={16} className="mr-2"/> Post Media
