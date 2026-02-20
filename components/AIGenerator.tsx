@@ -15,10 +15,11 @@ const AIGenerator: React.FC<AIGeneratorProps> = ({ onTextGenerated }) => {
     setError(null);
 
     try {
-      if (!process.env.GEMINI_API_KEY) {
-        throw new Error("La clave de API de Gemini no se encontró.");
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      if (!apiKey) {
+        throw new Error("La clave API de Gemini no está configurada. Por favor, asegúrate de establecer la variable de entorno VITE_GEMINI_API_KEY en la configuración de tu sitio de despliegue (ej. Netlify, Vercel).");
       }
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const ai = new GoogleGenAI({ apiKey });
       
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
