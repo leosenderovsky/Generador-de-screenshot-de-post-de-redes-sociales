@@ -1,6 +1,7 @@
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import html2canvas from 'html2canvas';
+import { Sun, Moon } from 'lucide-react';
 import { PostData, SocialNetwork, Layout, Theme, ExportFormat } from './types';
 import ControlPanel from './components/ControlPanel';
 import PreviewCanvas from './components/PreviewCanvas';
@@ -27,6 +28,29 @@ const App: React.FC = () => {
   const [scale, setScale] = useState<number>(2);
   const [exportFormat, setExportFormat] = useState<ExportFormat>('png');
   const [customScale, setCustomScale] = useState<string>("2");
+
+  const [appTheme, setAppTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('appTheme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (appTheme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('appTheme', appTheme);
+  }, [appTheme]);
+
+  const toggleAppTheme = () => {
+    setAppTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
 
   const previewRef = useRef<HTMLDivElement>(null);
   
@@ -89,7 +113,14 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row text-gray-800 dark:text-gray-200">
+    <div className="min-h-screen flex flex-col lg:flex-row text-gray-800 dark:text-gray-200 relative">
+      <button
+        onClick={toggleAppTheme}
+        className="fixed top-4 right-4 z-50 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700"
+        aria-label="Toggle Dark Mode"
+      >
+        {appTheme === 'light' ? <Moon size={20} className="text-gray-800" /> : <Sun size={20} className="text-yellow-400" />}
+      </button>
       <ControlPanel
         postData={postData}
         setPostData={setPostData}
