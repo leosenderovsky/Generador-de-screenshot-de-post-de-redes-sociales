@@ -2,7 +2,7 @@
 import React from 'react';
 import { PostData, Layout, Theme, ExportFormat, SocialNetwork } from '../types';
 import { PREDEFINED_GRADIENTS } from '../constants';
-import { Settings, Link, Image as ImageIcon, Video, Type, Rows, Columns, Sun, Moon, Palette, Download, FileImage, FileJson, Verified, BarChart2 } from 'lucide-react';
+import { Settings, Link, Image as ImageIcon, Video, Type, Rows, Columns, Sun, Moon, Palette, Download, FileImage, FileJson, Verified, BarChart2, ImageOff } from 'lucide-react';
 import { InstagramLogo, FacebookLogo, XLogo } from './IconComponents';
 
 
@@ -133,11 +133,20 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         />
         
         <div className="flex space-x-2">
-            <label className="w-1/2 flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 transition-colors text-sm">
+            <label className="flex-1 flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 transition-colors text-sm">
                 <ImageIcon size={16} className="mr-2"/> Post Media
                 <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
             </label>
-            <label className="w-1/2 flex items-center justify-center px-4 py-2 bg-gray-500 text-white rounded-md cursor-pointer hover:bg-gray-600 transition-colors text-sm">
+            {postData.mediaUrl && (
+                <button 
+                    onClick={() => setPostData(prev => ({ ...prev, mediaUrl: '' }))}
+                    className="flex-none flex items-center justify-center px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors text-sm"
+                    title="Quitar Media"
+                >
+                    <ImageOff size={16} />
+                </button>
+            )}
+            <label className="flex-1 flex items-center justify-center px-4 py-2 bg-gray-500 text-white rounded-md cursor-pointer hover:bg-gray-600 transition-colors text-sm">
                 <ImageIcon size={16} className="mr-2"/> Foto Perfil
                 <input type="file" accept="image/*" className="hidden" onChange={handleProfilePicUpload} />
             </label>

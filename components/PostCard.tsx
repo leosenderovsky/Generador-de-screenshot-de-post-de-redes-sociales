@@ -81,10 +81,12 @@ const PostCard: React.FC<PostCardProps> = ({ postData, layout, theme }) => {
   if (layout === 'wide') {
     return (
       <div className={cardClasses} style={{ minWidth: '640px' }}>
-        <div className="w-1/2">
-          <Media className="h-full" />
-        </div>
-        <div className="w-1/2 flex flex-col">
+        {mediaUrl && (
+          <div className="w-1/2">
+            <Media className="h-full" />
+          </div>
+        )}
+        <div className={mediaUrl ? "w-1/2 flex flex-col" : "w-full flex flex-col"}>
           <Header />
           <TextContent className="flex-grow"/>
           <Stats />
@@ -96,7 +98,7 @@ const PostCard: React.FC<PostCardProps> = ({ postData, layout, theme }) => {
   return (
     <div className={cardClasses}>
       <Header />
-      <Media />
+      {mediaUrl && <Media />}
       {text && <TextContent />}
       <Stats />
     </div>
