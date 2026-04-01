@@ -34,6 +34,12 @@ const PostCard: React.FC<PostCardProps> = ({ postData, layout, theme }) => {
     }
   };
 
+  const VerifiedBadge: React.FC = () => (
+    <span className="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500">
+      <Verified size={12} className="text-white" />
+    </span>
+  );
+
   const Header: React.FC = () => (
     <div className="flex items-center justify-between p-4">
       <div className="flex items-center">
@@ -41,7 +47,7 @@ const PostCard: React.FC<PostCardProps> = ({ postData, layout, theme }) => {
         <div className="ml-3">
           <p className={`font-bold ${usernameColor} flex items-center`}>
             {displayName}
-            {isVerified && <Verified size={16} className="ml-1 text-blue-500 fill-current" />}
+            {isVerified && <VerifiedBadge />}
           </p>
           {network !== 'instagram' && <p className={`text-sm ${statsColor}`}>{username}</p>}
         </div>
