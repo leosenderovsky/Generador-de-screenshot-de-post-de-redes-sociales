@@ -48,10 +48,51 @@ export function parseInstagramHTML(html: string): ParsedPost {
 // Similar para Facebook y X...
 export function parseFacebookHTML(html: string): ParsedPost {
   const $ = cheerio.load(html);
-  // ... lógica similar
+
+  const text = $('blockquote p').text() || $('meta[property="og:description"]').attr('content') || '';
+  const authorName = $('a[title]').first().text() || $('meta[property="og:title"]').attr('content') || 'Usuario de Facebook';
+  const username = authorName;
+
+  const images: string[] = [];
+  $('img').each((i, elem) => {
+    const src = $(elem).attr('src');
+    if (src) images.push(src);
+  });
+
+  return {
+    platform: 'facebook',
+    author: {
+      name: authorName,
+      username,
+    },
+    content: {
+      text,
+      images,
+    },
+  };
 }
 
 export function parseXHTML(html: string): ParsedPost {
   const $ = cheerio.load(html);
-  // ... lógica similar
+  const text = $('blockquote p').text() || $('meta[property="og:description"]').attr('content') || '';
+  const authorName = $('a[rel="author"]').first().text() || $('meta[property="og:title"]').attr('content') || 'Usuario de X';
+  const username = authorName;
+
+  const images: string[] = [];
+  $('img').each((i, elem) => {
+    const src = $(elem).attr('src');
+    if (src) images.push(src);
+  });
+
+  return {
+    platform: 'x',
+    author: {
+      name: authorName,
+      username,
+    },
+    content: {
+      text,
+      images,
+    },
+  };
 }

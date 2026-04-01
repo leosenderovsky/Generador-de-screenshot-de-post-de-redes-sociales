@@ -1,6 +1,6 @@
 import React from 'react';
 import { PostData, Layout, Theme } from '../types';
-import { Heart, MessageCircle, Repeat, PlayCircle, Verified } from 'lucide-react';
+import { Check, Heart, MessageCircle, Repeat, PlayCircle } from 'lucide-react';
 import { InstagramLogo, FacebookLogo, XLogo } from './IconComponents';
 
 interface PostCardProps {
@@ -24,6 +24,17 @@ const PostCard: React.FC<PostCardProps> = ({ postData, layout, theme }) => {
   const statsColor = isDark ? 'text-gray-400' : 'text-gray-500';
   const linkColor = network === 'facebook' ? 'text-blue-500' : network === 'x' ? 'text-blue-400' : 'text-blue-600';
 
+  const getVerifiedBadgeBg = () => {
+    switch (network) {
+      case 'facebook': return 'bg-[#1877F2]';
+      case 'instagram': return 'bg-[#0095F6]';
+      case 'x': return 'bg-[#1D9BF0]';
+      default: return 'bg-[#1D9BF0]';
+    }
+  };
+
+  const verifiedBadgeRing = isDark ? 'ring-1 ring-white/15' : 'ring-1 ring-white/80';
+
   const renderNetworkIcon = () => {
     switch (network) {
       case 'instagram': return <InstagramLogo className="w-6 h-6" />;
@@ -34,8 +45,8 @@ const PostCard: React.FC<PostCardProps> = ({ postData, layout, theme }) => {
   };
 
   const VerifiedBadge: React.FC = () => (
-    <span className="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500">
-      <Verified size={12} className="text-white" />
+    <span className={`ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full shadow-sm ${getVerifiedBadgeBg()} ${verifiedBadgeRing}`}>
+      <Check size={12} className="text-white" strokeWidth={3} />
     </span>
   );
 

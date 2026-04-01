@@ -1,5 +1,5 @@
 export type SocialNetwork = 'instagram' | 'facebook' | 'x' | 'none'
-export type Layout = 'vertical' | 'horizontal'
+export type Layout = 'vertical' | 'wide'
 export type Theme = 'light' | 'dark'
 export type ExportFormat = 'png' | 'jpeg'
 

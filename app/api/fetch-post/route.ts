@@ -2,6 +2,7 @@
 
 // Importamos las herramientas que necesitamos
 import { NextRequest, NextResponse } from 'next/server';
+import { parseFacebookHTML, parseInstagramHTML, parseXHTML } from '@/app/lib/parsers';
 
 // Esta función se ejecuta cuando alguien hace una petición a /api/fetch-post
 export async function POST(request: NextRequest) {
